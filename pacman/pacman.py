@@ -54,7 +54,7 @@ class Cenario:
 
             if coluna == 2:
                 cor = AZUL
-                pygame.draw.rect(tela, cor, (x,y,self.tamanho, self.tamanho),0 )
+                pygame.draw.rect(tela, cor, (x,y,self.tamanho, self.tamanho),0)
 
             if coluna == 1:
                 pygame.draw.circle(tela, AMARELO,(x + metade,y+metade), self.tamanho//10,0)
@@ -86,7 +86,7 @@ class Pacman:
 
     def aceitar_movimento(self):
         self.linha = self.linha_intencao
-        self.coluna = self.linha_intencao
+        self.coluna = self.coluna_intencao
 
     def cacular_regras(self):
         self.coluna_intencao = self.coluna + self.velocidade_x
@@ -118,7 +118,7 @@ class Pacman:
 
         #olhos
         olho_x = int(self.centro_x + self.raio / 3)
-        olho_y = int(self.centro_y - self.raio * 0.7)
+        olho_y = int(self.centro_y - self.raio * 0.70)
         olho_raio = int(self.raio / 10)
         pygame.draw.circle(tela, PRETO, (olho_x, olho_y), olho_raio, 0)
 
@@ -186,7 +186,7 @@ if __name__ == '__main__':
         cenario.pintar(tela)
         pacman.desenhar(tela)
         pygame.display.update()
-        #pygame.time.delay(1000)
+        #pygame.time.delay(100)
 
         #captura os eventos
         eventos = pygame.event.get()
