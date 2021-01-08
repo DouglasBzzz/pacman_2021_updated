@@ -9,24 +9,29 @@ PRETO = (0,0,0)
 
 class Pacman:
     def __init__(self):
+        self.coluna = 1
+        self.linha = 1
         self.centro_x = 400
         self.centro_y = 300
-        self.tamanho = 75
-        self.velocidade_x = 5
-        self.velocidade_y = 5
+        self.tamanho = 800//30
+        self.velocidade_x = 10
+        self.velocidade_y = 10
         self.raio = int(self.tamanho//2)
 
     def cacular_regras(self):
-        self.centro_x += self.velocidade_x
+        self.coluna += self.coluna + self.velocidade_x
+        self.linha += self.linha + self.velocidade_y
+        self.centro_x = int(self.coluna * self.tamanho + self.raio)
+        self.centro_y = int(self.linha * self.tamanho + self.raio)
 
         if self.centro_x + self.raio > 800:
             self.velocidade_x -= 1
         if self.centro_x - self.raio < 0:
-            self.velocidade_x += 1
+            self.velocidade_x = 1
         if self.velocidade_y + self.raio > 600:
             self.velocidade_y -= 1
         if self.velocidade_y - self.raio < 0:
-            self.velocidade_y += 1
+            self.velocidade_y = 1
 
     def desenhar(self, tela):
         #corpo
@@ -73,6 +78,7 @@ if __name__ == '__main__':
         tela.fill(PRETO)
         pacman.desenhar(tela)
         pygame.display.update()
+        #pygame.time.delay(1000)
 
         #caputra os eventos
         for e in pygame.event.get():
