@@ -14,24 +14,26 @@ class Pacman:
         self.centro_x = 400
         self.centro_y = 300
         self.tamanho = 800//30
-        self.velocidade_x = 10
-        self.velocidade_y = 10
-        self.raio = int(self.tamanho//2)
+        self.velocidade_x = 1
+        self.velocidade_y = 1
+        self.raio = self.tamanho//2
 
     def cacular_regras(self):
-        self.coluna += self.coluna + self.velocidade_x
-        self.linha += self.linha + self.velocidade_y
+        self.coluna = self.coluna + self.velocidade_x
+        self.linha = self.linha + self.velocidade_y
         self.centro_x = int(self.coluna * self.tamanho + self.raio)
         self.centro_y = int(self.linha * self.tamanho + self.raio)
 
+        """
         if self.centro_x + self.raio > 800:
-            self.velocidade_x -= 1
+            self.velocidade_x = -1
         if self.centro_x - self.raio < 0:
             self.velocidade_x = 1
-        if self.velocidade_y + self.raio > 600:
-            self.velocidade_y -= 1
-        if self.velocidade_y - self.raio < 0:
+        if self.centro_y + self.raio > 600:
+            self.velocidade_y = -1
+        if self.centro_y - self.raio < 0:
             self.velocidade_y = 1
+        """
 
     def desenhar(self, tela):
         #corpo
