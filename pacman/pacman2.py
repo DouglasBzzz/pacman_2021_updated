@@ -12,7 +12,21 @@ class Pacman:
         self.centro_x = 400
         self.centro_y = 300
         self.tamanho = 75
+        self.velocidade_x = 5
+        self.velocidade_y = 5
         self.raio = int(self.tamanho//2)
+
+    def cacular_regras(self):
+        self.centro_x += self.velocidade_x
+
+        if self.centro_x + self.raio > 800:
+            self.velocidade_x -= 1
+        if self.centro_x - self.raio < 0:
+            self.velocidade_x += 1
+        if self.velocidade_y + self.raio > 600:
+            self.velocidade_y -= 1
+        if self.velocidade_y - self.raio < 0:
+            self.velocidade_y += 1
 
     def desenhar(self, tela):
         #corpo
@@ -51,10 +65,16 @@ class Pacman:
 if __name__ == '__main__':
     pacman = Pacman()
     while True:
+
+        #calcular as regras - movimentacao do personagem, quadro a quadro
+        pacman.cacular_regras()
+
         #pintar a tela
+        tela.fill(PRETO)
         pacman.desenhar(tela)
         pygame.display.update()
 
+        #caputra os eventos
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 exit()
