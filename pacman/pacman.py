@@ -44,6 +44,7 @@ class Cenario:
             [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
             [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
         ]
+        self.pontos = 0
     def pintar_linha(self, tela, numero_linha, linha):
         for numero_coluna, coluna in enumerate(linha):
             metade = self.tamanho // 2
@@ -70,6 +71,10 @@ class Cenario:
         if 0 <= col < 28 and 0 <= lin < 29:
             if self.matriz[lin][col] != 2:
                 self.pacman.aceitar_movimento()
+                if self.matriz[lin][col] == 1:
+                    self.pontos += 1
+                    self.matriz[lin][col] = 0
+                    print(self.pontos)
 
 class Pacman:
     def __init__(self, tamanho):
