@@ -6,6 +6,7 @@ tela = pygame.display.set_mode((800,600),0)
 
 AMARELO = (255,255,0)
 PRETO = (0,0,0)
+VELOCIDADE = 1
 
 class Pacman:
     def __init__(self):
@@ -14,8 +15,8 @@ class Pacman:
         self.centro_x = 400
         self.centro_y = 300
         self.tamanho = 800//30
-        self.velocidade_x = 1
-        self.velocidade_y = 1
+        self.velocidade_x = 0
+        self.velocidade_y = 0
         self.raio = self.tamanho//2
 
     def cacular_regras(self):
@@ -69,6 +70,29 @@ class Pacman:
         olho_raio = int(self.raio / 10)
         pygame.draw.circle(tela, PRETO, (olho_x, olho_y), olho_raio, 0)
 
+    def processar_eventos(self, eventos):
+        #ventos implementados para permitir a navegacao atraves do WASD alem das teclas direcionais.
+        for e in eventos:
+            if e.type == pygame.KEYDOWN:
+                if ((e.key == pygame.K_RIGHT) or (e.key == pygame.K_d)):
+                    self.velocidade_x = VELOCIDADE
+                elif ((e.key == pygame.K_LEFT) or (e.key == pygame.K_a)):
+                    self.velocidade_x = -VELOCIDADE
+                elif ((e.key == pygame.K_UP) or (e.key == pygame.K_w)):
+                    self.velocidade_y = -VELOCIDADE
+                elif ((e.key == pygame.K_DOWN) or (e.key == pygame.K_s)):
+                    self.velocidade_y = VELOCIDADE
+
+            if e.type == pygame.KEYUP:
+                if ((e.key == pygame.K_RIGHT) or (e.key == pygame.K_d)):
+                    self.velocidade_x = 0
+                elif ((e.key == pygame.K_LEFT) or (e.key == pygame.K_a)):
+                    self.velocidade_x = 0
+                elif ((e.key == pygame.K_UP) or (e.key == pygame.K_w)):
+                    self.velocidade_y = 0
+                elif ((e.key == pygame.K_DOWN) or (e.key == pygame.K_s)):
+                    self.velocidade_y = 0
+
 if __name__ == '__main__':
     pacman = Pacman()
     while True:
@@ -82,7 +106,11 @@ if __name__ == '__main__':
         pygame.display.update()
         #pygame.time.delay(1000)
 
-        #caputra os eventos
-        for e in pygame.event.get():
+        #captura os eventos
+        eventos = pygame.event.get()
+
+        for e in eventos:
             if e.type == pygame.QUIT:
                 exit()
+
+        pacman.processar_eventos(eventos)
